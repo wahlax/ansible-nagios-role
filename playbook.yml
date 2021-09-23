@@ -100,7 +100,7 @@
 
   - name: Create index file for apache so nagios passes http on localhost
     ansible.builtin.file:
-      path: /var/www/html/index.xml
+      path: /var/www/html/index.html
       state: touch
 
   - name: Change owner and group for /var/www/html to apache
