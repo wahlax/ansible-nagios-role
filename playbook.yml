@@ -1,5 +1,10 @@
 ---
 # Per https://support.nagios.com/kb/article/nagios-core-installing-nagios-core-from-source-96.html
+#
+# Parameters:
+#
+# nagios_core-version: 4.4.6
+# nagios_plugins_version: 2.3.3
 
 - hosts: all
   become: yes
@@ -39,25 +44,25 @@
 
   - name: Download nagios-core with checksum (sha256)
     get_url:
-      url: https://github.com/NagiosEnterprises/nagioscore/archive/refs/tags/nagios-4.4.6.tar.gz
-      dest: /tmp/nagioscore-nagios-4.4.6.tar.gz
+      url: https://github.com/NagiosEnterprises/nagioscore/archive/refs/tags/nagios-{{nagios_core_version}}.tar.gz
+      dest: /tmp/nagioscore-nagios-{{nagios_core_version}}.tar.gz
       checksum: sha256:b1c6fb447f14995ea691941edd928ff4532b9e240e5058bac58b14eec14ceca1
 
-  - name: Unarchive Nagios core on the remote machine at /tmp/nagios-4.4.6
+  - name: Unarchive Nagios core on the remote machine at /tmp/nagios-{{nagios_core_version}}
     ansible.builtin.unarchive:
-      src: /tmp/nagioscore-nagios-4.4.6.tar.gz
+      src: /tmp/nagioscore-nagios-{{nagios_core_version}}.tar.gz
       dest: /tmp
       remote_src: yes
 
   - name: Download nagios-plugins with checksum (sha256)
     get_url:
-      url: https://github.com/nagios-plugins/nagios-plugins/archive/refs/tags/release-2.3.3.tar.gz
-      dest: /tmp/nagios-plugins-release-2.3.3.tar.gz
+      url: https://github.com/nagios-plugins/nagios-plugins/archive/refs/tags/release-{{nagios_plugins_version}}.tar.gz
+      dest: /tmp/nagios-plugins-release-{{nagios_plugins_version}}.tar.gz
       checksum: sha256:3f5900cbb507ebbdbfe7792c15b9108240034effb28b426e5ac4ddfb9525dbb8
 
-  - name: Unarchive Nagios plugins on the remote machine at /tmp/nagios-plugins-2.3.3
+  - name: Unarchive Nagios plugins on the remote machine at /tmp/nagios-plugins-{{nagios_plugins_version}}
     ansible.builtin.unarchive:
-      src: /tmp/nagios-plugins-release-2.3.3.tar.gz
+      src: /tmp/nagios-plugins-release-{{nagios_plugins_version}}.tar.gz
       dest: /tmp
       remote_src: yes
 
@@ -76,7 +81,7 @@
   - name: Compile Nagios core
     command: "{{ item }}"
     args:
-      chdir: "/tmp/nagioscore-nagios-4.4.6"
+      chdir: "/tmp/nagioscore-nagios-{{nagios_core_version}}"
     with_items:
       - ./configure
       - make all
@@ -91,7 +96,7 @@
   - name: Compile Nagios plugins
     command: "{{ item }}"
     args:
-      chdir: "/tmp/nagios-plugins-release-2.3.3"
+      chdir: "/tmp/nagios-plugins-release-{{nagios_plugins_version}}"
     with_items:
       - ./tools/setup
       - ./configure
