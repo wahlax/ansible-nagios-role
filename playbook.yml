@@ -116,7 +116,7 @@
       recurse: true
 
   - name: Add nagiosadmin user to apache
-    command: htpasswd -c -b /usr/local/nagios/etc/htpasswd.users nagiosadmin welcome
+    command: htpasswd -c -b /usr/local/nagios/etc/htpasswd.users nagiosadmin {{nagios_admin_password}}
 
   - name: Start apache service
     command: systemctl start httpd.service

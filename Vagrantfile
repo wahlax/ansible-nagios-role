@@ -73,7 +73,8 @@ Vagrant.configure("2") do |config|
     ansible.playbook = "playbook.yml"
     ansible.extra_vars = {
       nagios_core_version: '4.4.6',
-      nagios_plugins_version: '2.3.3'
+      nagios_plugins_version: '2.3.3',
+      nagios_admin_password: 'welcome'
     }
   end
 end
