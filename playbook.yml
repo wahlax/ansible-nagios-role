@@ -122,7 +122,13 @@
     command: htpasswd -c -b /usr/local/nagios/etc/htpasswd.users nagiosadmin {{nagios_admin_password}}
 
   - name: Start apache service
-    command: systemctl start httpd.service
+    ansible.builtin.systemd:
+      name: httpd.service
+      state: started
+      enabled: yes
 
   - name: Start nagios service
-    command: systemctl start nagios.service
+    ansible.builtin.systemd:
+      name: nagios.service
+      state: started
+      enabled: yes
