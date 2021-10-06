@@ -71,12 +71,6 @@ Vagrant.configure("2") do |config|
   # Provisioning configuration for Ansible.
   config.vm.provision "ansible" do |ansible|
     ansible.playbook = "playbook.yml"
-    ansible.extra_vars = {
-      nagios_core_version: '4.4.6',
-      nagios_core_sha256: 'b1c6fb447f14995ea691941edd928ff4532b9e240e5058bac58b14eec14ceca1',
-      nagios_plugins_version: '2.3.3',
-      nagios_plugins_sha256: '3f5900cbb507ebbdbfe7792c15b9108240034effb28b426e5ac4ddfb9525dbb8',
-      nagios_admin_password: 'welcome'
-    }
+    ansible.extra_vars = '@variables.yml'
   end
 end
