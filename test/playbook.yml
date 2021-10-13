@@ -2,4 +2,4 @@
   become: yes
 
   roles:
-    - { role: ../../ansible-nagios-role }
+    - ../../ansible-nagios-role
