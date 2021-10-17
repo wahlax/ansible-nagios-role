@@ -1,3 +1,10 @@
 ---
 
 dependencies: []
+
+galaxy_info:
+  role_name: nagios
+  author: wahlax
+  description: Nagios install for linux
+  company: WAHLAX LLC
+  license: MIT
